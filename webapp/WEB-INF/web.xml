@@ -5,10 +5,15 @@
          version="3.1">
 
     <display-name>Archetype Created Web Application</display-name>
-	
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:spring/applicationContext*.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4jConfiguration</param-name>
+        <!--为什么classpath*:log4j/log4j2.xml会报错-->
+        <param-value>log4j/log4j2.xml</param-value>
     </context-param>
 	
     <!-- 字符集 过滤器 -->
@@ -35,6 +40,10 @@
     <!-- 防止Spring quartz内存溢出监听器 -->
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <!--log4j2需添加-->
+    <listener>
+        <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
     </listener>
 	
     <!-- Spring MVC -->
