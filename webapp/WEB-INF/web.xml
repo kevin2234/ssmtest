@@ -41,10 +41,10 @@
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
-    <!--log4j2需添加-->
-    <listener>
-        <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-    </listener>
+    <!--log4j2需添加，貌似不需要-->
+    <!--<listener>-->
+        <!--<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>-->
+    <!--</listener>-->
 	
     <!-- Spring MVC -->
     <servlet>
@@ -52,8 +52,8 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath*:spring/applicationContext*.xml</param-value>
-            <!--<param-value>classpath:spring/applicationContext-mvc.xml</param-value>-->
+            <param-value></param-value>
+            <!--<param-value>classpath*:spring/applicationContext*.xml</param-value>-->
             <description>SpringMVC</description>
         </init-param>
         <load-on-startup>1</load-on-startup>

@@ -19,6 +19,7 @@
     <!-- Service包(自动注入) ，不含Controller-->
     <context:component-scan base-package="com.bing.ddup.*">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
     <!-- 配置事务管理 -->

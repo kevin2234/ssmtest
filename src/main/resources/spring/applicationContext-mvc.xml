@@ -28,8 +28,10 @@
 
     <!-- 4.扫描Controller相关的bean -->
     <!-- 为什么扫描com.bing.ddup会报冲突，重新编译一下就没事了 -->
+    <!--只有这里扫描Controller，为什么初始化时，会重复两次，注释这里就一次也没有-->
     <context:component-scan base-package="com.bing.ddup.**.web" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
     <!-- 定义无需Controller的url<->view直接映射 -->
