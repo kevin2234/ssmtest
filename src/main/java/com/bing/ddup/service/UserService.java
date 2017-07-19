@@ -49,6 +49,10 @@ public class UserService {
 	public void destroyUser(int id){
 		userMapper.destroyUser(id);
 	}
+
+    public User findByUsername(String username){
+        return new User();
+    }
 	
 	@Resource
 	public void setUserMapper(UserMapper userMapper) {
