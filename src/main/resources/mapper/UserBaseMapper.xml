@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bing.ddup.dao.UserBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.bing.ddup.model.UserBase" >
+    <id column="UID" property="uid" jdbcType="INTEGER" />
+    <result column="REGISTER_SOURCE" property="registerSource" jdbcType="TINYINT" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="GENDER" property="gender" jdbcType="BIT" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="BIGINT" />
+    <result column="SIGNATURE" property="signature" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="MOBILE_BIND_TIME" property="mobileBindTime" jdbcType="INTEGER" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="EMAIL_BIND_TIME" property="emailBindTime" jdbcType="INTEGER" />
+    <result column="FACE" property="face" jdbcType="VARCHAR" />
+    <result column="FACE200" property="face200" jdbcType="VARCHAR" />
+    <result column="SRCFACE" property="srcface" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="INTEGER" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="INTEGER" />
+    <result column="PUSH_TOKEN" property="pushToken" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UID, REGISTER_SOURCE, USER_NAME, NICK_NAME, GENDER, BIRTHDAY, SIGNATURE, MOBILE, 
+    MOBILE_BIND_TIME, EMAIL, EMAIL_BIND_TIME, FACE, FACE200, SRCFACE, CREATE_TIME, UPDATE_TIME, 
+    PUSH_TOKEN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where UID = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_base
+    where UID = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bing.ddup.model.UserBase" >
+    insert into user_base (UID, REGISTER_SOURCE, USER_NAME, 
+      NICK_NAME, GENDER, BIRTHDAY, 
+      SIGNATURE, MOBILE, MOBILE_BIND_TIME, 
+      EMAIL, EMAIL_BIND_TIME, FACE, 
+      FACE200, SRCFACE, CREATE_TIME, 
+      UPDATE_TIME, PUSH_TOKEN)
+    values (#{uid,jdbcType=INTEGER}, #{registerSource,jdbcType=TINYINT}, #{userName,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{birthday,jdbcType=BIGINT}, 
+      #{signature,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{mobileBindTime,jdbcType=INTEGER}, 
+      #{email,jdbcType=VARCHAR}, #{emailBindTime,jdbcType=INTEGER}, #{face,jdbcType=VARCHAR}, 
+      #{face200,jdbcType=VARCHAR}, #{srcface,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=INTEGER}, #{pushToken,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bing.ddup.model.UserBase" >
+    insert into user_base
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        UID,
+      </if>
+      <if test="registerSource != null" >
+        REGISTER_SOURCE,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME,
+      </if>
+      <if test="gender != null" >
+        GENDER,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="signature != null" >
+        SIGNATURE,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="mobileBindTime != null" >
+        MOBILE_BIND_TIME,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="emailBindTime != null" >
+        EMAIL_BIND_TIME,
+      </if>
+      <if test="face != null" >
+        FACE,
+      </if>
+      <if test="face200 != null" >
+        FACE200,
+      </if>
+      <if test="srcface != null" >
+        SRCFACE,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="pushToken != null" >
+        PUSH_TOKEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="registerSource != null" >
+        #{registerSource,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileBindTime != null" >
+        #{mobileBindTime,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailBindTime != null" >
+        #{emailBindTime,jdbcType=INTEGER},
+      </if>
+      <if test="face != null" >
+        #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="face200 != null" >
+        #{face200,jdbcType=VARCHAR},
+      </if>
+      <if test="srcface != null" >
+        #{srcface,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=INTEGER},
+      </if>
+      <if test="pushToken != null" >
+        #{pushToken,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bing.ddup.model.UserBase" >
+    update user_base
+    <set >
+      <if test="registerSource != null" >
+        REGISTER_SOURCE = #{registerSource,jdbcType=TINYINT},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        GENDER = #{gender,jdbcType=BIT},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="signature != null" >
+        SIGNATURE = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileBindTime != null" >
+        MOBILE_BIND_TIME = #{mobileBindTime,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailBindTime != null" >
+        EMAIL_BIND_TIME = #{emailBindTime,jdbcType=INTEGER},
+      </if>
+      <if test="face != null" >
+        FACE = #{face,jdbcType=VARCHAR},
+      </if>
+      <if test="face200 != null" >
+        FACE200 = #{face200,jdbcType=VARCHAR},
+      </if>
+      <if test="srcface != null" >
+        SRCFACE = #{srcface,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=INTEGER},
+      </if>
+      <if test="pushToken != null" >
+        PUSH_TOKEN = #{pushToken,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UID = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bing.ddup.model.UserBase" >
+    update user_base
+    set REGISTER_SOURCE = #{registerSource,jdbcType=TINYINT},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=BIT},
+      BIRTHDAY = #{birthday,jdbcType=BIGINT},
+      SIGNATURE = #{signature,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      MOBILE_BIND_TIME = #{mobileBindTime,jdbcType=INTEGER},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      EMAIL_BIND_TIME = #{emailBindTime,jdbcType=INTEGER},
+      FACE = #{face,jdbcType=VARCHAR},
+      FACE200 = #{face200,jdbcType=VARCHAR},
+      SRCFACE = #{srcface,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=INTEGER},
+      PUSH_TOKEN = #{pushToken,jdbcType=VARCHAR}
+    where UID = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>
