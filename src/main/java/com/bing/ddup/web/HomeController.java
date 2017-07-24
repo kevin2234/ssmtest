@@ -1,13 +1,17 @@
 package com.bing.ddup.web;
 
+import com.bing.ddup.model.UserAuth;
+import com.bing.ddup.service.UserAuthService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.Enumeration;
 
 @Controller
@@ -18,10 +22,14 @@ public class HomeController {
     // slf4j方式
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(HomeController.class);
 
+    private UserAuthService userAuthService;
+
     @RequestMapping("home")
-    public String home(){
-        LOG.info("hello home!");
+    public String home() throws SQLException {
+        logger.info("hello home!");
 //        logger.info("hello home!");
+        UserAuth userAuth = userAuthService.login("admin", "1");
+        logger.info(userAuth.getIdentifier());
         return "index";
     }
 
@@ -49,6 +57,18 @@ public class HomeController {
             Object value = session.getAttribute(name);
             logger.info("{}：{}", name, value);
         }
-        return "index";
+        return "/auth/login";
+    }
+
+    @RequestMapping(value = "register")
+    public String register(Model model,
+                        HttpServletRequest request, HttpServletResponse response) {
+
+        return "/auth/register";
+    }
+
+    @Resource
+    public void setUserAuthService(UserAuthService userAuthService) {
+        this.userAuthService = userAuthService;
     }
 }

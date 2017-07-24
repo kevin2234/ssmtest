@@ -74,7 +74,7 @@ public class UserController extends BaseController {
 	
 	@RequestMapping("list")
 	public String list(){
-		return "user/listUser";
+		return "user/user-list";
 	}
 	
 	@POST

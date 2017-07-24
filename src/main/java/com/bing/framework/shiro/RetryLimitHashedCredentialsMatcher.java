@@ -10,6 +10,7 @@ import org.apache.shiro.cache.CacheManager;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
+    private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger();
     // 声明一个缓存接口，这个接口是Shiro缓存管理的一部分，它的具体实现可以通过外部容器注入
     private Cache<String, AtomicInteger> passwordRetryCache;
 
@@ -29,9 +30,21 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
         if (retryCount.incrementAndGet() > 5) {
             throw new ExcessiveAttemptsException();
         }
-        boolean match = super.doCredentialsMatch(token, info);
+
+        logger.info("AuthenticationToken：{}", token);
+        logger.info("AuthenticationInfo：{}", info);
+        boolean match = false;
+        try {
+            match = super.doCredentialsMatch(token, info);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+
         if (match) {
+            logger.info("登录成功");
             passwordRetryCache.remove(username);
+        } else {
+            logger.info("登录失败");
         }
         return match;
     }

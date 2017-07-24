@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("authc")
-public class AuthcController {
+@RequestMapping("auth")
+public class AuthController {
     // /authc/** = authc 任何通过表单登录的用户都可以访问
     @RequestMapping("anyuser")
     public ModelAndView anyuser() {

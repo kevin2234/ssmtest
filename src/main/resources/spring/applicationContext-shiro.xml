@@ -11,7 +11,7 @@
     <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="com.bing.framework.shiro.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="cacheManager" />
-        <property name="hashAlgorithmName" value="md5" />
+        <property name="hashAlgorithmName" value="MD5" />
         <property name="hashIterations" value="2" />
         <property name="storedCredentialsHexEncoded" value="true" />
     </bean>
@@ -37,12 +37,13 @@
     <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/" />
-        <property name="unauthorizedUrl" value="/" />
+        <property name="loginUrl" value="/content/auth/login.jsp" />
+        <property name="unauthorizedUrl" value="/content/auth/unauth.jsp" />
         <property name="filterChainDefinitions">
             <value>
                 /authc/admin = roles[admin]
                 /authc/** = authc
+                /user/** = authc
                 /** = anon
             </value>
         </property>

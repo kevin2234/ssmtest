@@ -7,7 +7,10 @@ public class User {
 	private String password;
 	private Boolean isDel;
 	private String powers;
-	
+
+	private String username;
+	private String salt;
+
 	public User() {
 		super();
 	}
@@ -22,6 +25,15 @@ public class User {
 		this.isDel = isDel;
 		this.powers = powers;
 	}
+
+    /**
+     * 辅助方法返回username+salt
+     * @return username+salt
+     */
+	public String getCredentialsSalt() {
+	    return username+salt;
+    }
+
 
 	public Integer getId() {
 		return id;
@@ -71,4 +83,27 @@ public class User {
 		this.powers = powers;
 	}
 
+	public Boolean getDel() {
+		return isDel;
+	}
+
+	public void setDel(Boolean del) {
+		isDel = del;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 }
