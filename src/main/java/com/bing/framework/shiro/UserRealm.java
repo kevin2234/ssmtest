@@ -1,6 +1,10 @@
 package com.bing.framework.shiro;
 
+import com.bing.ddup.model.Perm;
+import com.bing.ddup.model.Role;
 import com.bing.ddup.model.User;
+import com.bing.ddup.model.dto.CurUser;
+import com.bing.ddup.service.AuthService;
 import com.bing.ddup.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -18,6 +22,7 @@ public class UserRealm extends AuthorizingRealm {
     private static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager.getLogger();
     // 用户对应的角色信息与权限信息都保存在数据库中，通过UserService获取数据
     private UserService userService;
+    private AuthService authService;
 
     /**
      * 提供用户信息返回权限信息
@@ -25,26 +30,33 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         logger.info("doGetAuthorizationInfo");
-        String username = (String) principals.getPrimaryPrincipal();
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        logger.info(username);
-        // 根据用户名查询当前用户拥有的角色
-//        Set<Role> roles = userService.findRoles(username);
-//        Set<String> roleNames = new HashSet<String>();
-//        for (Role role : roles) {
-//            roleNames.add(role.getRole());
-//        }
-//        // 将角色名称提供给info
-//        authorizationInfo.setRoles(roleNames);
+        CurUser curUser = (CurUser) principals.getPrimaryPrincipal();
 
-        Set<String> permissionNames = new HashSet<String>();
-//        // 根据用户名查询当前用户权限
-//        Set<Permission> permissions = userService.findPermissions(username);
-//        for (Permission permission : permissions) {
-//            permissionNames.add(permission.getPermission());
-//        }
-        // 将权限名称提供给info
-        authorizationInfo.setStringPermissions(permissionNames);
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        logger.info(curUser.getUsername());
+
+        try {
+            // 根据用户名查询当前用户拥有的角色
+            Set<Role> roles = authService.findRolesByUid(curUser.getUid());
+
+            Set<String> roleNames = new HashSet<String>();
+            for (Role role : roles) {
+                roleNames.add(role.getRoleItem());
+            }
+    //         将角色名称提供给info
+            authorizationInfo.setRoles(roleNames);
+
+            Set<String> permissionNames = new HashSet<String>();
+            // 根据用户名查询当前用户权限
+            Set<Perm> permissions = authService.findPermsByUid(curUser.getUid());
+            for (Perm permission : permissions) {
+                permissionNames.add(permission.getPermission());
+            }
+            // 将权限名称提供给info
+            authorizationInfo.setStringPermissions(permissionNames);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
 
         return authorizationInfo;
     }
@@ -78,7 +90,12 @@ public class UserRealm extends AuthorizingRealm {
 //        }
 //        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),
 //                user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), getName());
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),
+//        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(),
+//                user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), getName());
+
+        CurUser curUser = new CurUser(user.getUid(), user.getUname(), user.getUsername(), user.getUserType(), user.getStatus());
+
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(curUser,
                 user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), getName());
         return authenticationInfo;
     }
@@ -86,5 +103,10 @@ public class UserRealm extends AuthorizingRealm {
     @Resource
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Resource
+    public void setAuthService(AuthService authService) {
+        this.authService = authService;
     }
 }

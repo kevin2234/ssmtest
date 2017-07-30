@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bing.ddup.dao.PermMapper">
+    <resultMap id="BaseResultMap" type="com.bing.ddup.model.Perm">
+        <id column="PERM_ID" property="permId" jdbcType="INTEGER"/>
+        <result column="PERM_NAME" property="permName" jdbcType="VARCHAR"/>
+        <result column="PERMISSION" property="permission" jdbcType="VARCHAR"/>
+        <result column="PERM_VALUE" property="permValue" jdbcType="VARCHAR"/>
+        <result column="PERM_TYPE" property="permType" jdbcType="TINYINT"/>
+        <result column="URL" property="url" jdbcType="VARCHAR"/>
+        <result column="PID" property="pid" jdbcType="INTEGER"/>
+        <result column="SORT" property="sort" jdbcType="SMALLINT"/>
+        <result column="LIMIT_IDS" property="limitIds" jdbcType="INTEGER"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="INTEGER"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="INTEGER"/>
+        <result column="STATUS" property="status" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        PERM_ID, PERM_NAME, PERMISSION, PERM_VALUE, PERM_TYPE, URL, PID, SORT, LIMIT_IDS,
+        REMARK, CREATE_TIME, UPDATE_TIME, STATUS
+    </sql>
+
+    <select id="findPermsByUid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from (
+            select a.*
+            from perm_info a
+            left join role_perm_r b on a.PERM_ID = b.PERM_ID
+            left join role_user_r c on b.ROLE_ID = c.ROLE_ID
+            where c.UID=#{uid}
+        ) temp_t
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from perm_info
+        where PERM_ID = #{permId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from perm_info
+        where PERM_ID = #{permId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bing.ddup.model.Perm">
+        insert into perm_info (PERM_ID, PERM_NAME, PERMISSION,
+          PERM_VALUE, PERM_TYPE, URL,
+          PID, SORT, LIMIT_IDS,
+          REMARK, CREATE_TIME, UPDATE_TIME,
+          STATUS)
+        values (#{permId,jdbcType=INTEGER}, #{permName,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR},
+          #{permValue,jdbcType=VARCHAR}, #{permType,jdbcType=TINYINT}, #{url,jdbcType=VARCHAR},
+          #{pid,jdbcType=INTEGER}, #{sort,jdbcType=SMALLINT}, #{limitIds,jdbcType=INTEGER},
+          #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER},
+          #{status,jdbcType=TINYINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bing.ddup.model.Perm">
+        insert into perm_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="permId != null">
+                PERM_ID,
+            </if>
+            <if test="permName != null">
+                PERM_NAME,
+            </if>
+            <if test="permission != null">
+                PERMISSION,
+            </if>
+            <if test="permValue != null">
+                PERM_VALUE,
+            </if>
+            <if test="permType != null">
+                PERM_TYPE,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="pid != null">
+                PID,
+            </if>
+            <if test="sort != null">
+                SORT,
+            </if>
+            <if test="limitIds != null">
+                LIMIT_IDS,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="permId != null">
+                #{permId,jdbcType=INTEGER},
+            </if>
+            <if test="permName != null">
+                #{permName,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null">
+                #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="permValue != null">
+                #{permValue,jdbcType=VARCHAR},
+            </if>
+            <if test="permType != null">
+                #{permType,jdbcType=TINYINT},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                #{sort,jdbcType=SMALLINT},
+            </if>
+            <if test="limitIds != null">
+                #{limitIds,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bing.ddup.model.Perm">
+        update perm_info
+        <set>
+            <if test="permName != null">
+                PERM_NAME = #{permName,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null">
+                PERMISSION = #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="permValue != null">
+                PERM_VALUE = #{permValue,jdbcType=VARCHAR},
+            </if>
+            <if test="permType != null">
+                PERM_TYPE = #{permType,jdbcType=TINYINT},
+            </if>
+            <if test="url != null">
+                URL = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="pid != null">
+                PID = #{pid,jdbcType=INTEGER},
+            </if>
+            <if test="sort != null">
+                SORT = #{sort,jdbcType=SMALLINT},
+            </if>
+            <if test="limitIds != null">
+                LIMIT_IDS = #{limitIds,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=TINYINT},
+            </if>
+        </set>
+        where PERM_ID = #{permId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bing.ddup.model.Perm">
+        update perm_info
+        set PERM_NAME = #{permName,jdbcType=VARCHAR},
+          PERMISSION = #{permission,jdbcType=VARCHAR},
+          PERM_VALUE = #{permValue,jdbcType=VARCHAR},
+          PERM_TYPE = #{permType,jdbcType=TINYINT},
+          URL = #{url,jdbcType=VARCHAR},
+          PID = #{pid,jdbcType=INTEGER},
+          SORT = #{sort,jdbcType=SMALLINT},
+          LIMIT_IDS = #{limitIds,jdbcType=INTEGER},
+          REMARK = #{remark,jdbcType=VARCHAR},
+          CREATE_TIME = #{createTime,jdbcType=INTEGER},
+          UPDATE_TIME = #{updateTime,jdbcType=INTEGER},
+          STATUS = #{status,jdbcType=TINYINT}
+        where PERM_ID = #{permId,jdbcType=INTEGER}
+    </update>
+</mapper>

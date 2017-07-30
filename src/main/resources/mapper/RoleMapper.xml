@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bing.ddup.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.bing.ddup.model.Role">
+        <id column="ROLE_ID" property="roleId" jdbcType="INTEGER"/>
+        <result column="ROLE_ITEM" property="roleItem" jdbcType="VARCHAR"/>
+        <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="STATUS" property="status" jdbcType="TINYINT"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ROLE_ID, ROLE_ITEM, ROLE_NAME, CREATE_TIME, UPDATE_TIME, STATUS, REMARK
+    </sql>
+
+    <select id="findRolesByUid" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from (
+            select a.*
+            from role_info a
+            left join role_user_r b on a.ROLE_ID = b.ROLE_ID
+            where b.UID=#{uid}
+        ) temp_t
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from role_info
+        where ROLE_ID = #{roleId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from role_info
+        where ROLE_ID = #{roleId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.bing.ddup.model.Role">
+        insert into role_info (ROLE_ID, ROLE_ITEM, ROLE_NAME,
+          CREATE_TIME, UPDATE_TIME, STATUS,
+          REMARK)
+        values (#{roleId,jdbcType=INTEGER}, #{roleItem,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR},
+          #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT},
+          #{remark,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.bing.ddup.model.Role">
+        insert into role_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="roleItem != null">
+                ROLE_ITEM,
+            </if>
+            <if test="roleName != null">
+                ROLE_NAME,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="roleItem != null">
+                #{roleItem,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bing.ddup.model.Role">
+        update role_info
+        <set>
+            <if test="roleItem != null">
+                ROLE_ITEM = #{roleItem,jdbcType=VARCHAR},
+            </if>
+            <if test="roleName != null">
+                ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ROLE_ID = #{roleId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bing.ddup.model.Role">
+        update role_info
+        set ROLE_ITEM = #{roleItem,jdbcType=VARCHAR},
+          ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+          CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+          UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+          STATUS = #{status,jdbcType=TINYINT},
+          REMARK = #{remark,jdbcType=VARCHAR}
+        where ROLE_ID = #{roleId,jdbcType=INTEGER}
+    </update>
+</mapper>

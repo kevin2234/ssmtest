@@ -6,6 +6,6 @@
 <body>
 <h2>我是主页！</h2>
 <p><a href="/user/info">/user/info</a></p>
-<p><a href="/user/list">/user/info</a></p>
+<p><a href="/user/list">/user/list</a></p>
 </body>
 </html>
