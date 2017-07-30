@@ -31,6 +31,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             throw new ExcessiveAttemptsException();
         }
 
+        logger.info("username：{}", username);
         logger.info("AuthenticationToken：{}", token);
         logger.info("AuthenticationInfo：{}", info);
         boolean match = false;

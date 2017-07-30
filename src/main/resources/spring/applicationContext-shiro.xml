@@ -41,10 +41,15 @@
         <property name="unauthorizedUrl" value="/content/auth/unauth.jsp" />
         <property name="filterChainDefinitions">
             <value>
-                /authc/admin = roles[admin]
-                /authc/** = authc
-                /user/** = authc
-                /** = anon
+                <!--/auth/admin = roles[admin]-->
+                <!-- 对静态资源设置匿名访问，即可以未登录状态下访问 -->
+                /images/** = anon
+                /js/** = anon
+                /styles/** = anon
+                /css/** = anon
+
+                /auth/** = anon
+                /** = authc
             </value>
         </property>
     </bean>

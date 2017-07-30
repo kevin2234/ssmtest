@@ -6,57 +6,48 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class UserService {
 	
 	private UserMapper userMapper;
-	
-	public User login(User user) throws SQLException{
-		user = userMapper.login(user);
-		return user;
-	}
-	
-	public User infoUser(User user){
-		return userMapper.infoUser(user);
-	}
-	
-	public List<User> listUser(User user){
-		return userMapper.listUser(user);
-	}
-	
-	public List<Map<String, Object>> list(Map<String, String> param){
-		return userMapper.list(param);
-	}
-	public Integer count(Map<String, String> param){
-		return userMapper.count(param);
-	}
-	
-	public int saveUser(User user){
-		return userMapper.insertUser(user);
-	}
-	
-	public int updateUser(User user){
-		return userMapper.updateUser(user);
-	}
-	
-	public void deleteUser(int id){
-		userMapper.deleteUser(id);
-	}
-	
-	public void destroyUser(int id){
-		userMapper.destroyUser(id);
+
+	public int deleteByPrimaryKey(Integer uid) {
+		return userMapper.deleteByPrimaryKey(uid);
 	}
 
-    public User findByUsername(String username){
-        return new User();
-    }
+    public int insert(User record) {
+		return userMapper.insert(record);
+	}
+
+    public int insertSelective(User record){
+		return userMapper.insertSelective(record);
+	}
+
+    public User selectByPrimaryKey(Integer uid){
+		return userMapper.selectByPrimaryKey(uid);
+	}
+
+    public int updateByPrimaryKeySelective(User record){
+		return userMapper.updateByPrimaryKeySelective(record);
+	}
+
+    public int updateByPrimaryKey(User record){
+		return userMapper.updateByPrimaryKey(record);
+	}
+
+	
+	public User login(String username, String password) throws SQLException{
+		User user = userMapper.login(username, password);
+		return user;
+	}
+
+	public User findByUsername(String username) throws SQLException{
+		return userMapper.findByUsername(username);
+	}
 	
 	@Resource
 	public void setUserMapper(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
-	
 }

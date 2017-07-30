@@ -4,7 +4,7 @@
     <title>登录</title>
 </head>
 <body>
-    <form action="/auth/login">
+    <form action="/auth/do-login">
         用户名：<input type="text" name="username"/>
         密码：<input type="password" name="password"/>
         <input type="submit" value="提交"/>

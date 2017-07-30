@@ -35,7 +35,8 @@
     </context:component-scan>
 
     <!-- 定义无需Controller的url<->view直接映射 -->
-    <mvc:view-controller path="/" view-name="index.jsp"/>
+    <!--<mvc:view-controller path="/" view-name="index.jsp"/>-->
+    <mvc:view-controller path="/" view-name="index"/>
 
     <!--<mvc:annotation-driven conversion-service="conversionService" content-negotiation-manager="contentNegotiationManager">-->
         <!--<mvc:message-converters register-defaults="true">-->

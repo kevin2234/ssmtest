@@ -1,109 +1,119 @@
 package com.bing.ddup.model;
 
+import java.util.Date;
+
 public class User {
-	private Integer id;
-	private String account;
-	private String name;
-	private String password;
-	private Boolean isDel;
-	private String powers;
+    private Integer uid;
 
-	private String username;
-	private String salt;
+    private String uname;
 
-	public User() {
-		super();
-	}
+    private String username;
 
-	public User(Integer id, String account, String name, String password,
-			Boolean isDel, String powers) {
-		super();
-		this.id = id;
-		this.account = account;
-		this.name = name;
-		this.password = password;
-		this.isDel = isDel;
-		this.powers = powers;
-	}
+    private String account;
 
-    /**
-     * 辅助方法返回username+salt
-     * @return username+salt
-     */
-	public String getCredentialsSalt() {
-	    return username+salt;
+    private String password;
+
+    private Integer userType;
+
+    private Date createTime;
+
+    private Date updateTime;
+
+    private Integer status;
+
+    private String remark;
+
+    private String salt;
+
+    public Integer getUid() {
+        return uid;
     }
 
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public String getUname() {
+        return uname;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setUname(String uname) {
+        this.uname = uname == null ? null : uname.trim();
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getAccount() {
+        return account;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-	public Boolean getIsDel() {
-		return isDel;
-	}
+    public Integer getUserType() {
+        return userType;
+    }
 
-	public void setIsDel(Boolean isDel) {
-		this.isDel = isDel;
-	}
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
 
-	public String getPowers() {
-		return powers;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public void setPowers(String powers) {
-		this.powers = powers;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public Boolean getDel() {
-		return isDel;
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
-	public void setDel(Boolean del) {
-		isDel = del;
-	}
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public String getSalt() {
-		return salt;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
+    public String getCredentialsSalt() {
+        return this.username+this.salt;
+    }
 }
