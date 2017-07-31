@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache updateCheck="false"  name="shirocache">
-    <!--diskStore：缓存数据持久化的目录 地址  -->
-    <diskStore path="C:\ehcache" />
-    <!--<diskStore path="java.io.tmpdir"/>-->
-    <defaultCache
-            maxElementsInMemory="1000"
-            maxElementsOnDisk="10000000"
-            eternal="false"
-            overflowToDisk="false"
-            diskPersistent="false"
-            timeToIdleSeconds="120"
-            timeToLiveSeconds="120"
-            diskExpiryThreadIntervalSeconds="120"
-            memoryStoreEvictionPolicy="LRU">
-    </defaultCache>
+<ehcache name="shirocache">
 
-    <!--&lt;!&ndash; 登录记录缓存 锁定10分钟 &ndash;&gt;-->
-    <!--<cache name="passwordRetryCache"-->
-           <!--maxEntriesLocalHeap="2000"-->
-           <!--eternal="false"-->
-           <!--timeToIdleSeconds="3600"-->
-           <!--timeToLiveSeconds="0"-->
-           <!--overflowToDisk="false"-->
-           <!--statistics="true">-->
-    <!--</cache>-->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!-- 登录记录缓存 -->
+    <cache name="passwordRetryCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <!-- 授权缓存 -->
+    <cache name="authorizationCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <!-- 认证缓存 -->
+    <cache name="authenticationCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <cache name="shiro-activeSessionCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <cache name="shiro-kickout-session"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
 </ehcache>
